@@ -3,7 +3,7 @@ using namespace std;
 #define tab "\t"
 #define delimiter "\n--------------------------------------\n"
 //#define STRUCT_POINT
-#define DISTANCE_CHECK
+//#define DISTANCE_CHECK
 //#define CONSTRUCTORS_CHECK
 //#define ASSIGNMENT_CHECK
 class Point
