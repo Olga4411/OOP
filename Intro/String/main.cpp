@@ -227,23 +227,16 @@ public:
 	}
 	 explicit String(unsigned int size = 80) :size(size), str(new char[size] {}) // explicit запрещает явное преобразование
 	{
-		//this->size = size;
-		//this->str = new char[size] {};
 		cout << "DefConstructor:\t" << this<<endl;
 	}
-	 String(const char* str) :size(strlen(str) + 1), str(new char [size] {})// константный указатель на char-это строковая константа
+	 String(const char* str) :String(strlen(str) + 1)// Делегируем выделение памяти 1 конструктору// константный указатель на char-это строковая константа
 	{
-		//while (str[size++]);
-		//this->size = strlen(str) + 1;// +1, так как size хранит размер в байтах, а str считает размер в символах
-		//this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = str[i];
 		cout << "1arfConstructor:" << this << endl;
 		
 	}
-	 String(const String& other):size(other.size),str(new char[size]{})
+	 String(const String& other):String (other.str)
 	{
-		//this->size = other.size;
-		//this->str = new char[size] {};
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << this << endl;
 	}
