@@ -204,50 +204,73 @@ using std::endl;
 //	//Human vasya("1024byte", "Vasily123", 500824)
 
 //}
+
+/// <summary>
+/// 
+/// </summary>
 class String;
 String operator+(const String& left, const String& right);
 class String
 {
- unsigned int size;// размер строки в байтах
- char* str;//указатель на строку в динамической пам€ти
- // —трока-массив
+	unsigned int size;// размер строки в байтах
+	char* str;//указатель на строку в динамической пам€ти
+	// —трока-массив
 
 public:
-	unsigned int get_size()const
+	unsigned int get_size()const;
+	const char* get_str()const;
+	char* get_str();
+	explicit String(unsigned int size = 80);
+	String(const char* str);
+	String(const String& other);
+	~String();
+
+	//Operators
+	String& operator=(const String& other);
+	String& operator+=(const String& other);
+	// оператор квадратные скобки (ќператор индексировани€)- [] Subcribe operator возвращает значение по индексу
+	const char& operator[](unsigned int i)const;
+
+	char& operator[](unsigned int i);
+	// Methods:
+	void print()const;
+};
+// ќпределение класса
+	unsigned int String::get_size()const
 	{
 		return size;
 	}
-	const char* get_str()const
+	const char* String::get_str()const
 	{
 		return str;
 	}
-	 char* get_str()
+	char* String::get_str()
 	{
 		return str;
 	}
-	 explicit String(unsigned int size = 80) :size(size), str(new char[size] {}) // explicit запрещает €вное преобразование
+	String::String(unsigned int size) :size(size), str(new char[size] {}) // explicit запрещает €вное преобразование
 	{
-		cout << "DefConstructor:\t" << this<<endl;
+		cout << "DefConstructor:\t" << this << endl;
 	}
-	 String(const char* str) :String(strlen(str) + 1)// ƒелегируем выделение пам€ти 1 конструктору// константный указатель на char-это строкова€ константа
+	String::String(const char* str) :String(strlen(str) + 1)// ƒелегируем выделение пам€ти 1 конструктору// константный указатель на char-это строкова€ константа
 	{
 		for (int i = 0; i < size; i++)this->str[i] = str[i];
 		cout << "1arfConstructor:" << this << endl;
-		
+
 	}
-	 String(const String& other):String (other.str)
+	String::String(const String& other) :String(other.str)
 	{
 		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
 		cout << "CopyConstructor:" << this << endl;
 	}
-	~String()
+	String::~String()
 	{
 		delete[] this->str;//[] показывает, что удал€етс€ массив
 		cout << "Destructor:\t" << this << endl;
 	}
 
 	//Operators
-	String& operator=(const String& other)
+	String& String::operator=(const String& other)
 	{
 		//0) провер€ем не €вл€етс€ ли прин€тый объект нашим объектом
 		if (this == &other)return *this;
@@ -260,26 +283,26 @@ public:
 		cout << "CopyAssignment: " << this << endl;
 		return *this;
 	}
-	String& operator+=(const String& other)
+	String& String::operator+=(const String& other)
 	{
 		return *this = *this + other;
 	}
 	// оператор квадратные скобки (ќператор индексировани€)- [] Subcribe operator возвращает значение по индексу
-	const char& operator[](unsigned int i)const
+	const char& String::operator[](unsigned int i)const
 	{
 		return str[i];
 	}
-	char& operator[](unsigned int i)
+	char& String::operator[](unsigned int i)
 	{
 		return str[i];
 	}
 	// Methods:
-	void print()const
+	void String::print()const
 	{
 		cout << "Size:\t" << size << endl;
 		cout << "Str:\t" << str << endl;
 	}
-};
+
 
 ostream& operator<<(ostream& os, const String& obj)
 {
